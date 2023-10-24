@@ -1,20 +1,23 @@
 import requests
 from bs4 import BeautifulSoup
-import hyper
+#import hyper
 import urllib3
-from hyper.contrib import HTTP20Adapter
+#from hyper.contrib import HTTP20Adapter
 import shutil
-import cfscrape
+#import cfscrape
 import psutil
 import os
 import json
 import math
+import subprocess
 saveAnim = {
     "name":"",
     "info-link":"",
     "last-chapter": 1,
     "next-chapter": 2
 }
+
+#saves a manga
 def saveManga():
     result = False;
     count = 0;
@@ -25,14 +28,15 @@ def saveManga():
             result = True;
         count+=1;
     if result == False:
+        #adds the anime from anime history into a saveAnim list if its not found in the saveAnim list
         data["anime-history"].append(saveAnim);
     with open("history.json","w") as f:
         json.dump(data,f);
 def startReader(links):
-    os.startfile("Project2.exe");
+    subprocess.Popen([r"MangaReader.exe",saveAnim["name"]+" Chapter: "+str(saveAnim["last-chapter"])])
     running = True;
     while running == True:
-        if checkIfProcessRunning("Project2.exe") == False:
+        if checkIfProcessRunning("MangaReader.exe") == False:
             folder = 'Manga'
             for filename in os.listdir(folder):
                 file_path = os.path.join(folder, filename)
@@ -45,7 +49,9 @@ def startReader(links):
                     print('Failed to delete %s. Reason: %s' % (file_path, e));
             running = False;
             ask = input("Do you want to read next chapter? \n 1.Yes \n 2.No search Again \n 3.Go to Recent mangas! \n Type number corresponding to answer.\n");
+            # number coresponds to the user input
             if int(ask) == 1:
+                # sends user to next ch
                 nextChapter(links);
             elif int(ask) == 2:
                 ask = input("Would you like to save this manga to your favorites? \n 1.Yes \n 2.No\n");
