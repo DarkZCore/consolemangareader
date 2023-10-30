@@ -14,4 +14,8 @@ Enter - Enable/Disable Auto Scroll
 
 ESC - Exit App
 
+Manwha Mode - Backspace
+
+Press Backspace again for Manga Mode
+
 Things to note are that pressing enter at any time just takes you back to the initial 3 options. Also the size of the window depends on the size of the image divided by 2. If this is an issue I could provide a quick update for the viewer and add a config file to the folder so it could be modified to be any size.
